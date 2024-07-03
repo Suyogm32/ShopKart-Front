@@ -2,20 +2,32 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Center from './Center';
 import ProductBox from './ProductBox';
-const ProductsGrid=styled.div`
+export const ProductsGrid=styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
   padding-top: 20px;
+  @media screen and (min-width:300px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width:600px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media screen and (min-width:980px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  @media screen and (min-width:1200px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
 `;
-const Title=styled.div`
+export const Title=styled.div`
   font-size: 2rem;
   font-weight: 700;
 `;
 const NewProducts = () => {
   const [recentProducts,setRecentProducts]=useState([]);
   useEffect(()=>{
-    fetch('/api',{
+    fetch('/api?limit=10',{
       method:"GET",
       headers: {
         "Content-Type": "application/json",

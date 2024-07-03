@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { ButtonStyle } from './PrimaryBtn';
+import { ButtonStyle } from './Btn';
 import styled from 'styled-components';
 const StyledLink=styled(Link)`
 ${ButtonStyle}  

@@ -4,32 +4,48 @@ import { WhiteBox } from "../components/ProductBox";
 import { CartContext } from "../components/CartContext";
 const ItemWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.7fr 1.3fr;
+  grid-template-columns: 1.5fr .5fr;
   gap: 20px;
   height: 150px;
   margin: 20px;
   /* border-radius: 10px; */
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   /* border: 1px solid black; */
+  @media screen and (min-width:380px){
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (min-width:800px){
+    grid-template-rows: none;
+    grid-template-columns: 0.7fr 1.3fr;
+  }
 `;
 const ImgWrrapper = styled.div`
   background-color: #f3eeee;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin: 10px;
+  margin: auto;
   padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 130px;
+  max-height: 130px;
   border-radius: 5px;
   img {
     max-width: 100%;
-    height: 120px;
+    max-height: 120px;
   }
 `;
 const ProductTitle = styled.div`
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 500;
+  @media screen and (min-width:800px){
+    font-size: 0.75rem;
+  font-weight: 500;
+  }
+  @media screen and (min-width:800px){
+    font-size: 1rem;
+  font-weight: 500;
+  }
 `;
 const StyledQuantity = styled.div`
   display: flex;
@@ -48,10 +64,16 @@ const ProductInfo = styled.div`
 `;
 const Quant = styled.div`
   background-color: white;
-  padding: 2px;
+  padding: 1px;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: 1px;
+  @media screen and (min-width:380px) {
+    padding: 2px;
   padding-left: 1px;
   padding-right: 1px;
   margin: 2px;
+  }
 `;
 const CartProductBox = ({ prod, quantity }) => {
   const { _id, productName, productImages, price } = prod;
@@ -86,7 +108,7 @@ const CartProductBox = ({ prod, quantity }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 sm:w-1 sm:h-1"
               >
                 <path
                   fillRule="evenodd"
@@ -103,7 +125,7 @@ const CartProductBox = ({ prod, quantity }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 sm:w-1 sm:h-1"
               >
                 <path
                   fillRule="evenodd"

@@ -3,16 +3,24 @@ import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../components/CartContext";
 import styled from "styled-components";
 import Center from "../components/Center";
-import Btn from "../components/PrimaryBtn";
+import Btn from "../components/Btn";
 import axios from "axios";
 import CartProductBox from "./CartProductBox";
 import Input from "../components/Input";
 const ColumnsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-row: 1.3fr 0.7fr;
   gap: 40px;
   box-shadow: 2px gray;
   margin-top: 30px;
+  @media screen and (min-width:600px){
+    grid-template-rows: none;
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+  @media screen and (min-width:800px){
+    grid-template-rows: none;
+    grid-template-columns: 1.3fr 0.7fr;
+  }
 `;
 const Box = styled.div`
   background-color: #fff;
@@ -45,18 +53,20 @@ const MyCart = () => {
     Postalcode: "",
     State: "",
     Country: "",
-    productIds:cartProducts,
+    products:cartProducts,
   };
   console.log("length of CartProducts ", cartProducts?.length);
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [userDetails, setUserDetails] = useState(initialState);
+  const [error,setError]=useState('');
   useEffect(() => {
     if (cartProducts?.length > 0) {
       axios
         .post("/api/cart", { ids: cartProducts })
         .then((resp) => {
           setProducts(resp.data);
+          console.log("data",resp.data);
           const newdetails = { ...userDetails };
           newdetails.products = cartProducts;
           setUserDetails(newdetails);
@@ -85,9 +95,12 @@ const MyCart = () => {
     e.preventDefault();
     try{
       const data=userDetails;
-      console.log(data);
-      const resp=axios.post("/api/checkout",data);
-      console.log(resp.data);
+      console.log("data at checkout",data);
+      const resp=await axios.post("/api/checkout",data);
+      console.log(resp.data.url);
+      if(resp.data.url){
+        window.location=resp.data.url;
+      }
     }catch (error) {
       // Handle Axios POST request error
       console.error("Error creating product:", error);
@@ -109,7 +122,7 @@ const MyCart = () => {
               </div>
             )}
             {products?.length > 0 && (
-              <>
+              <div className="gap-2">
                 <Title>Cart</Title>
                 {products.map((product) => (
                   <div key={product._id}>
@@ -121,7 +134,7 @@ const MyCart = () => {
                     />
                   </div>
                 ))}
-              </>
+              </div>
             )}
             <TotalPriceStyle>
               <div>
@@ -132,7 +145,7 @@ const MyCart = () => {
           {cartProducts?.length > 0 && (
             <Box>
               <Title>Order Summary</Title>
-              <form  onSubmit={saveUserCart}>
+
                 <Input
                   type="text"
                   placeholder="Name"
@@ -188,11 +201,11 @@ const MyCart = () => {
                 <Btn
                   secondary={"true"}
                   block={"true"}
-                  type="submit"
+                  onClick={saveUserCart}
                 >
                   Continue to Payment
                 </Btn>
-              </form>
+
             </Box>
           )}
         </ColumnsWrapper>

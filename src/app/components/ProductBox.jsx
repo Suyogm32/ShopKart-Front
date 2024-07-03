@@ -23,8 +23,20 @@ export const WhiteBox = styled.div`
   }
 `;
 const Title = styled.div`
-  font-size: 1rem;
+  font-size: 0.75rem;
+  font-weight: 300;
+  @media screen and (min-width:450px){
+    font-size: 0.9rem;
   font-weight: normal;
+  }
+  @media screen and (min-width:600px){
+    font-size: 0.8rem;
+  font-weight: normal;
+  }
+  @media screen and (min-width:740px){
+    font-size: 1rem;
+  font-weight: normal;
+  }
 `;
 const CartButton = styled.button`
   background-color: #eee;
@@ -42,8 +54,16 @@ const ProductInfoBox = styled.div`
   border-bottom-right-radius: 10px;
 `;
 const PriceStyle = styled.div`
-  font-size: 1.2rem;
+font-size: 0.75rem;
   font-weight: 500;
+  @media screen and (min-width:450px){
+    font-size: 1rem;
+  font-weight: 500;
+  }
+  @media screen and (min-width:600px){
+    font-size: 1.2rem;
+  font-weight: 500;
+  }
 `;
 const OuterBorder = styled.div`
   border: 1px solid gray;
@@ -64,7 +84,7 @@ const ProductBox = ({ _id, productName, productImages, price }) => {
       <ProductInfoBox>
         <div>
           <Title>{productName}</Title>
-          <PriceStyle>${price}</PriceStyle>
+          <PriceStyle>₹{price}</PriceStyle>
         </div>
         <div>
           <OuterBorder>

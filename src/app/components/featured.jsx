@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Center from "./Center";
 import styled from "styled-components";
-import Btn from "./PrimaryBtn";
+import Btn from "./Btn";
 import ButtonLink from "./ButtonLink";
 import CartIcon from "./icons/CartIcon";
 import { CartContext } from "./CartContext";
@@ -22,18 +22,28 @@ const Desc = styled.p`
 `;
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-rows:0.9fr 1.1fr;
   gap: 40px;
   padding: 10px;
+  div:nth-child(1){
+    order: 2;
+  }
   img {
     max-width: 100%;
-    height: 100%;
+    height: auto;
+  }
+  @media screen and (min-width:700px) {
+    grid-template-rows: none;
+    grid-template-columns: 0.9fr 1.1fr;
+    div:nth-child(1){
+    order: 0;
+  }
   }
 `;
 const Colmns = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: start;
   margin-left: 4px;
   padding-left: 4px;
@@ -53,6 +63,7 @@ const FeaturedProduct = ({ product }) => {
       <Center>
         <Wrapper>
           <Colmns>
+
             <div>
               <Title>{product.productName}</Title>
               <Desc>{product.description}</Desc>
@@ -66,6 +77,7 @@ const FeaturedProduct = ({ product }) => {
                 Add To Cart
               </Btn>
             </ButtonWrapper>
+
           </Colmns>
           <Colmns>
             <img
